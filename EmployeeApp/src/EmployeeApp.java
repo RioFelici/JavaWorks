@@ -43,37 +43,40 @@ public class EmployeeApp extends JFrame{
             }
         }
     }
-
     public EmployeeApp(){
         super("Employee Application");
-        
         final EmployeePanel ep = new EmployeePanel();
     
-//---------------------------------------------------------------------------------------------------------------------------------------------Menu Bar
+//Menu Bar
+        
         JMenuBar jmb = new JMenuBar();
         setJMenuBar(jmb);
         
-//---------------------------------------------------------------------------------------------------------------------------------------------File Menu
+//File Menu
+        
         JMenu jm = jmb.add(new JMenu("File"));
+//New MenuItem
+        
         JMenuItem jmi = jm.add(new JMenuItem("New...", 'N'));
         jmi.addActionListener(e ->{
             String s = JOptionPane.showInputDialog(EmployeeApp.this, "Enter 1 or more Employees (Name Age Income)");
             if (s!= null){
                 list.getData(s);
-                repaint();} //----------------------------------------------------------------------------------------Repaint updates screen because JAVA DOES NOT UPDATE AUTOMATICALLY
+                repaint();} //Repaint updates screen because JAVA DOES NOT UPDATE AUTOMATICALLY
         });
         
-        jmi = jm.add(new JMenuItem("Add...",'A'));
+        //jmi = jm.add(new JMenuItem("Add...",'A'));
         jm.addSeparator();
-        jmi = jm.add(new JMenuItem("Open...",'O'));
         
+//Open MenuItem        
+        jmi = jm.add(new JMenuItem("Open...",'O'));
         final JFileChooser jfc = new JFileChooser();
-        jfc.setCurrentDirectory(new File (".")); //-----------------------------------------------------------------Sets current directory to the current working file (in this case EmployeeApp)
+        jfc.setCurrentDirectory(new File (".")); //"." Sets current directory to the current working file (in this case EmployeeApp)
         jmi.addActionListener(e ->{
             if(jfc.showOpenDialog(EmployeeApp.this) == JFileChooser.APPROVE_OPTION){
                 File f = jfc.getSelectedFile();
                 int size = (int) f.length();
-                char ch[] = new char[size]; //---------------------------------------------------- Reads an Array of bytes
+                char ch[] = new char[size]; //Reads an Array of bytes
                 try{
                     FileReader fr = new FileReader(f);
                     fr.read(ch, 0 , size);
@@ -83,7 +86,7 @@ public class EmployeeApp extends JFrame{
                 }catch(IOException excp){
                     System.err.println("IO");
                 }
-                String s = new String(ch); //--------------------------------------------------------- Converts char to string
+                String s = new String(ch); //Converts char to string
                 list.getData(s);
                 repaint();
             }
